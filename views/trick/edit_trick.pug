@@ -1,0 +1,19 @@
+doctype html
+html(lang='en')
+  include ../common/head.pug
+  +head("Edit Trick")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar()
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1 Edit Trick
+            form(action="/trick/"+trick.id+"/edit", method="POST")
+              .formgroup
+                input(name="trick_title", type="text", placeholder="Enter title", value=trick.title).mb-3.form-control
+                input(name="trick_description", type="text", placeholder="Enter description", value=trick.description).mb-3.form-control
+                button(type="submit").btn.btn-primary Save
+    include ../common/footer.pug
+    +footer()

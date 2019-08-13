@@ -1,0 +1,26 @@
+mixin navbar(user)
+  nav.navbar.navbar-expand.navbar-light.bg-light
+    a(href="/", aria-label="QMLong Logo").navbar-brand.mr-0.mr-md-2
+      img(src="/img/logo.svg", width="36", height="36")
+    .collapse.navbar-collapse
+      ul.navbar-nav.mr-auto
+        li.nav-item
+          a.nav-link(href="/") Home
+        if user
+          li.nav-item
+            a.nav-link(href="/members") Members
+          li.nav-item
+            a.nav-link(href="/tricks") Tricks
+    .navbar-right
+      if user
+        span.navbar-text Hello #{user.local.email}!
+    .navbar-right
+      ul.navbar-nav.mr-auto
+        if !user
+          li.nav-item
+            a.nav-link(href="/signup") Sign up
+          li.nav-item
+            a.nav-link(href="/login") Login
+        else
+          li.nav-item
+            a.nav-link(href="/logout") Logout

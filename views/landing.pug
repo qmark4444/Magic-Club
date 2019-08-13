@@ -1,0 +1,26 @@
+doctype html
+html(lang='en')
+  include common/head.pug
+  +head("Magic Club")
+  body
+    header
+      include common/navbar.pug
+      +navbar(user)
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            if !user
+              h1.mb-3 Welcome to Magic Club
+              p.lead Sign up for membership to learn amazing tricks.
+              p.lead.mb-4 Why wait?
+            else
+              h1.mb-3 Magic Club Member
+              p.lead You can have a look at our tricks.
+              p.lead.mb-4 Or tell us what trick you are interested in
+              form(action="/", method="POST")
+                .formgroup
+                  input(name="trick_title", type="text", placeholder="Enter title").mb-3.form-control
+                  input(name="trick_description", type="text", placeholder="Enter description").mb-3.form-control
+                  button(type="submit").btn.btn-primary Submit
+    include common/footer.pug
+    +footer()

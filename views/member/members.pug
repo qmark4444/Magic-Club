@@ -1,0 +1,42 @@
+doctype html
+html(lang='en')
+  include ../common/head.pug
+  +head("Members")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar(user)
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1 Members
+            table.table
+              thead
+                tr
+                  th(scope="col") Name
+                  th(scope="col") Email
+                  if user.local.isAdmin
+                    th(scope="col") Action
+                tr
+              tbody                
+                for member in members
+                  tr(id=member._id)
+                    td
+                      span #{member.local.name}
+                    td
+                      //- a(href="/member/" + member.id) Details
+                      span #{member.local.email}
+                    //- - var notSelf = (user._id !== member._id)
+                    - var notSelf = (user._id.toString() !== member._id.toString())
+                    - var deactivated = !member.local.active
+                    - var buttonText = deactivated?'Activate':'Suspend'
+                    if user.local.isAdmin && notSelf
+                      td 
+                        //- button(onclick=`deactivateMember('${member._id}')` disabled=deactivated).btn.btn-primary Suspend
+                        //- button(onclick=`toggleMember('${member._id}')`).btn.btn-danger ${buttonText}
+                        //- button(onclick=`toggleMember('${member._id}')`).btn.btn-danger ${deactivated?Activate:Suspend}
+                        //- button(onclick=`toggleMember('${member._id}')` class=deactivated?'btn-primary':'btn-danger').btn | ${(deactivated?Activate:Suspend)}
+                        button(onclick=`toggleMember('${member._id}')` class=deactivated?'btn-primary':'btn-danger').btn #{buttonText}
+    include ../common/footer.pug
+    +footer()
+    script(src='/js/members.js')

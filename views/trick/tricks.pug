@@ -1,0 +1,33 @@
+doctype html
+html(lang='en')
+  include ../common/head.pug
+  +head("Tricks")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar(user)
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1 Tricks
+            table.table
+              thead
+                tr
+                  th(scope="col") Title
+                  th(scope="col") Description
+                  if user.local.isAdmin
+                    th(scope="col") Actions
+                tr
+              tbody                
+                for trick in tricks
+                  tr(id=trick.id)
+                    td
+                      span #{trick.title}
+                    td
+                      a(href="/trick/" + trick.id) Details
+                    if user.local.isAdmin
+                      td 
+                        button(onclick=`deleteTrick('${trick.id}')`).btn.btn-primary Delete
+    include ../common/footer.pug
+    +footer()
+    script(src='/js/tricks.js')
