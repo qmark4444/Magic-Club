@@ -59,7 +59,7 @@ store.on('error', function(error) {
 });
 
 app.use(session({ 
-  secret: 'QMLong secret',
+  secret: process.env.SESSION_SECRET,
   name: 'magicClub_session',
   cookie: { 
     maxAge: 1000 * 60 * 60 * 24, // 1 day.
