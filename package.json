@@ -27,7 +27,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
-    "start-1": "if [[ $NODE_ENV == 'production' ]]; then node app.js; else nodemon app.js; fi"
+    "start-prod": "NODE_ENV=production node ./app",
+    "start-1": "if [[ $NODE_ENV == 'production' ]]; then node app.js; else nodemon app.js; fi",
+    "explain": "in prod, error stack not shown"
   },
   "keywords": [],
   "author": "",

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 const MemberSchema = mongoose.Schema({
-    local: { //passport-local
+    local: { 
         name: {
             type: String,
             required: true
@@ -52,5 +52,10 @@ const MemberSchema = mongoose.Schema({
 //     timestamps: true
 // }
 );
+
+// MemberSchema.methods.generateHash = function (password) {
+MemberSchema.statics.generateHash = function (password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);//use Salt encryption: genSaltSync(rounds), the number of rounds to process the data
+};
 
 module.exports = mongoose.model('Member', MemberSchema);

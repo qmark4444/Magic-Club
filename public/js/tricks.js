@@ -1,5 +1,3 @@
-
-
 function deleteTrick(trickId) {
     $.ajax({
         url: '/trick/' + trickId + '/delete-json',
@@ -8,7 +6,6 @@ function deleteTrick(trickId) {
         data: JSON.stringify({trickId}),
         type: 'POST',
         success: ((res) => {
-            // Replace follow button with unfollow.
             console.log("Result: ", res)
             $("#"+trickId).remove();
         }),

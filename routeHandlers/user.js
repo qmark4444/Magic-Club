@@ -17,9 +17,6 @@ exports.show_signup = function(req, res, next) {
 const rerender_signup = function(errors, req, res, next) {
 	res.render('user/signup', { formData: req.body, errors: errors});
 }
-const generateHash = function(password) {
-	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
-}
 
 exports.signup = function(req, res, next) {
 	let errors = {};
@@ -35,13 +32,13 @@ exports.signup = function(req, res, next) {
 					newUser = new User({
 						"local.name": req.body.name,
 						"local.email": req.body.email,
-						"local.password": generateHash(req.body.password)
+						"local.password": User.generateHash(req.body.password)
 					});					
 				} else {
 					newUser = new User({
 						"local.name": req.body.name,
 						"local.email": req.body.email,
-						"local.password": generateHash(req.body.password),
+						"local.password": User.generateHash(req.body.password),
 						"local.isAdmin": true
 					});
 				}
@@ -77,7 +74,7 @@ exports.logout = function(req, res, next) {
         res.clearCookie('magicClub_session');//session name set in app.js
         setTimeout(function () {
             res.redirect('/');
-        }, 0);//redirect after 2 seconds
+        }, 0);
     });
 }
 

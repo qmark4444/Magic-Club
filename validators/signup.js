@@ -30,9 +30,10 @@ exports.validateUser = function(errors, req) {
 			resolve(errors);
 		})
 		// .catch( err => {
-		// 	reject(err);
+		// 	reject(err); //not handled
 		// })
 
-		//.then replace with async/await?
+		//.then replace with async/await + try/catch?
+		// or, (req, res, next) => Promise.resolve().then().catch(next)
 	})
 }

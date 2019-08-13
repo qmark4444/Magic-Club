@@ -2,7 +2,7 @@
 
 const createError = require('http-errors');
 const express = require('express');
-// const app = express();
+// const app = express(); //must after passport setup?
 const port = process.env.PORT || 9000;
 const path = require('path');
 const mongoose = require('mongoose');
@@ -11,8 +11,9 @@ const logger = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
+const {xhrErrorHandler, notFoundErrorHandler, finalErrorHandler} = require('./middlewares/customErrorHandlers');
 require('dotenv').config();
-require('./config/passport_setup')(passport);//before app instance???
+require('./config/passport_setup')(passport);
 
 const app = express();
 
@@ -78,22 +79,10 @@ const membersRouter = require('./routes/members');
 app.use('/', appRouter);
 app.use('/members', membersRouter);
 
-//at last handle all errors
-// app.use(function(req, res, next) {
-//   next(createError(404)); // catch 404 and forward to error handler
-// });
-
-// // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  // console.error(err.stack)
-  // res.status(500).send('Something broke!')
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+//at last handle all errors--- from next(error)
+app.use(xhrErrorHandler);
+app.use(notFoundErrorHandler);
+app.use(finalErrorHandler);
 
 app.listen(port, () => {
   console.log('Node Server is listening on port: ' + port);
