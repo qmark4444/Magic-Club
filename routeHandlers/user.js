@@ -64,7 +64,7 @@ exports.login = function(req, res, next) {
 
 exports.logout = function(req, res, next) { 
 	req.logout();
-	// req.session.destroy();//need express-session, if just cookie-session then TypeError: req.session.destroy is not a function
+	req.session.destroy();//need express-session, if just cookie-session then TypeError: req.session.destroy is not a function
 	res.redirect('/');
 
 	// req.session.destroy( function (err) {
