@@ -62,12 +62,6 @@ exports.login = function(req, res, next) {
 	})(req, res, next);
 }
 
-// exports.login = passport.authenticate('local', {
-// 	successRedirect: "/",
-// 	failureRedirect: "/login",
-// 	failureFlash: true
-// });
-
 exports.logout = function(req, res, next) { 
 	req.logout();
 	req.session.destroy();//need express-session, if just cookie-session then TypeError: req.session.destroy is not a function

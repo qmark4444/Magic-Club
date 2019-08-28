@@ -44,27 +44,6 @@ module.exports = function(passport) {
 				}).catch(err => {
 					done(err, false);
 				})
-
-				// User.findOne({
-				// 	"local.email": email
-				// }).then(user => {
-				// 	if (user == null) {
-				// 		// req.flash('loginErrorMessage', 'Incorrect credentials.');
-				// 		return done(null, false, req.flash('loginErrorMessage', 'Incorrect credentials.'));
-				// 	} else if (!user.local.active) {
-				// 		// req.flash('loginErrorMessage', 'Your account is suspended, contact administration for more information');
-				// 		return done(null, false, req.flash('loginErrorMessage', 'Your account is suspended, contact administration for more information'));
-				// 	} else if (user.local.password == null || user.local.password == undefined) {
-				// 		// req.flash('loginErrorMessage', 'You must reset your password');
-				// 		return done(null, false, req.flash('loginErrorMessage', 'You must reset your password'));
-				// 	} else if(!validPassword(user, password)) {
-				// 		// req.flash('loginErrorMessage', 'Incorrect credentials');
-				// 		return done(null, false, req.flash('loginErrorMessage', 'Incorrect credentials'));
-				// 	}
-				// 	return done(null, user);
-				// }).catch(err => {
-				// 	return done(err, false);
-				// })
 			}
 		)
 	)
