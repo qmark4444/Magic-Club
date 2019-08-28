@@ -70,7 +70,7 @@ exports.logout = function(req, res, next) {
 	req.session.destroy( function (err) {
         req.session = null;
         // res.clearCookie(); // need to clear cookie?
-        res.clearCookie('magicClub_session');//session name set in app.js
+        // res.clearCookie('magicClub_session');//session name set in app.js
         setTimeout(function () {
             res.redirect('/');
         }, 0);
