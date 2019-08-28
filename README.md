@@ -9,6 +9,9 @@ After log in, a member can view list of members in the club and list of magic tr
 
 If the member is also an admin, they can see extra action buttons to suspend or (re)activate members, and edit or delete tricks.
 
+# [Deployment]
+
+Deployed on Heroku: https://little-magic-club.herokuapp.com, connected to MongoDB mLab. The sole admin of the club is admin@mail.com. 
 
 # [Techniques]
 
