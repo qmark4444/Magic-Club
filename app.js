@@ -36,7 +36,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // connect to DB
-mongoose.connect(process.env.DB_CONNECTION, {
+mongoose.connect('mongodb+srv://qmlong:Ffm1wMuZHu4JNAfr@magicclub-c8whp.mongodb.net/test?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true
@@ -49,7 +49,7 @@ mongoose.connect(process.env.DB_CONNECTION, {
 var MongoDBStore = require('connect-mongodb-session')(session);
 // declare a session store instance
 var store = new MongoDBStore({
-  uri: process.env.DB_CONNECTION, 
+  uri: 'mongodb+srv://qmlong:Ffm1wMuZHu4JNAfr@magicclub-c8whp.mongodb.net/test?retryWrites=true&w=majority', 
   collection: 'userSessions' //collection: the MongoDB collection to store sessions in. By default it's 'sessions'
 }); 
 // Catch errors 
@@ -59,7 +59,7 @@ store.on('error', function(error) {
 });
 
 app.use(session({ 
-  secret: process.env.SESSION_SECRET,
+  secret: 'QMLong_Secret',
   name: 'magicClub_session',
   cookie: { 
     maxAge: 1000 * 60 * 60 * 24, // 1 day.
