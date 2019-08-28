@@ -2,6 +2,8 @@ node_modules
 
 .env
 
+.login-req-object
+
 config/auth.js
 
 routeHandlers/company-smtp.js

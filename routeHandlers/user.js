@@ -6,7 +6,7 @@ const {isEmpty} = require('lodash');
 const { validateUser } = require('../validators/signup');
 
 exports.show_login = function(req, res, next) {
-	res.render('user/login', { formData: {}, errors: {} });
+	res.render('user/login', { formData: {}, errors: req.flash('loginErrorMessage') });
 }
 
 exports.show_signup = function(req, res, next) {
@@ -61,6 +61,12 @@ exports.login = function(req, res, next) {
 		failureFlash: true
 	})(req, res, next);
 }
+
+// exports.login = passport.authenticate('local', {
+// 	successRedirect: "/",
+// 	failureRedirect: "/login",
+// 	failureFlash: true
+// });
 
 exports.logout = function(req, res, next) { 
 	req.logout();

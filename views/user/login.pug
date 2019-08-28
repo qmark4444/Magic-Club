@@ -11,6 +11,8 @@ html(lang='en')
           .col-sm-12.offset-md-2.col-md-8
             .jumbotron
               h2.text-center Login
+              if (errors.length)
+                p.large.text-danger #{errors}
               .row
                 .col-sm-12.col-md-12.col-xs-12
                   form(action='/login', method='POST')
