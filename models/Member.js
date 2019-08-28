@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
 
 const MemberSchema = mongoose.Schema({
     local: { 

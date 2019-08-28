@@ -1,8 +1,7 @@
 
 let User = require("../models/Member");
-let bcrypt = require("bcrypt");
 const passport = require('passport');
-let flash = require('connect-flash');
+// let flash = require('connect-flash');
 const {isEmpty} = require('lodash');
 const { validateUser } = require('../validators/signup');
 
