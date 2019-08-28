@@ -36,7 +36,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // connect to DB
-mongoose.connect('mongodb+srv://qmlong:Ffm1wMuZHu4JNAfr@magicclub-c8whp.mongodb.net/test?retryWrites=true&w=majority', {
+mongoose.connect(process.env.DB_CONNECTION, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true
@@ -46,25 +46,26 @@ mongoose.connect('mongodb+srv://qmlong:Ffm1wMuZHu4JNAfr@magicclub-c8whp.mongodb.
     console.log('Could not connect to the database. Exiting now...', err);
     process.exit(1);//exit node
 });
-var MongoDBStore = require('connect-mongodb-session')(session);
-// declare a session store instance
-var store = new MongoDBStore({
-  uri: 'mongodb+srv://qmlong:Ffm1wMuZHu4JNAfr@magicclub-c8whp.mongodb.net/test?retryWrites=true&w=majority', 
-  collection: 'userSessions' //collection: the MongoDB collection to store sessions in. By default it's 'sessions'
-}); 
-// Catch errors 
-store.on('error', function(error) {
-  assert.ifError(error);
-  assert.ok(false);
-});
+
+// var MongoDBStore = require('connect-mongodb-session')(session);
+// // declare a session store instance
+// var store = new MongoDBStore({
+//   uri: process.env.DB_CONNECTION, 
+//   collection: 'userSessions' //collection: the MongoDB collection to store sessions in. By default it's 'sessions'
+// }); 
+// // Catch errors 
+// store.on('error', function(error) {
+//   assert.ifError(error);
+//   assert.ok(false);
+// });
 
 app.use(session({ 
-  secret: 'QMLong_Secret',
+  secret: process.env.SESSION_SECRET,
   name: 'magicClub_session',
   cookie: { 
     maxAge: 1000 * 60 * 60 * 24, // 1 day.
   },
-  store: store,  // a session store instance = MongoDB connection session
+  // store: store,  // a session store instance = MongoDB connection session
   resave: true, 
   saveUninitialized: true
 }));
