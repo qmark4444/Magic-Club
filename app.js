@@ -9,7 +9,8 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
-const session = require('express-session');
+// const session = require('express-session');
+const cookieSession = require('cookie-session');
 const flash = require('connect-flash');
 const {xhrErrorHandler, notFoundErrorHandler, finalErrorHandler} = require('./middlewares/customErrorHandlers');
 require('dotenv').config();
@@ -31,7 +32,12 @@ app.use(logger('dev'));
 //body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,//30 says
+    keys: [process.env.COOKIE_KEY]
+  })
+);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -47,6 +53,7 @@ mongoose.connect(process.env.DB_CONNECTION, {
     process.exit(1);//exit node
 });
 
+//express-session: no need? replaced with cookie-session
 // var MongoDBStore = require('connect-mongodb-session')(session);
 // // declare a session store instance
 // var store = new MongoDBStore({
@@ -59,19 +66,19 @@ mongoose.connect(process.env.DB_CONNECTION, {
 //   assert.ok(false);
 // });
 
-app.use(session({ 
-  secret: process.env.SESSION_SECRET,
-  name: 'magicClub_session',
-  cookie: { 
-    maxAge: 1000 * 60 * 60 * 24, // 1 day.
-  },
-  // store: store,  // a session store instance = MongoDB connection session
-  resave: true, 
-  saveUninitialized: true
-}));
+// app.use(session({ 
+//   secret: process.env.SESSION_SECRET,
+//   name: 'magicClub_session',
+//   cookie: { 
+//     maxAge: 1000 * 60 * 60 * 24, // 1 day.
+//   },
+//   store: store,  // a session store instance = MongoDB connection session
+//   resave: true, 
+//   saveUninitialized: true
+// }));
 
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session()); // different from express-session: passport session for logout/login
 
 // to app routes
 const appRouter = require('./routes/app');
