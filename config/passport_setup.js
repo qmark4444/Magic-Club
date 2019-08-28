@@ -30,6 +30,9 @@ module.exports = function(passport) {
 					if (user == null) {
 						req.flash('message', 'Incorrect credentials.')
 						return done(null, false)
+					} else if (!user.local.active) {
+						req.flash('message', 'Your account is suspended, contact administration for more information')
+						return done(null, false)
 					} else if (user.local.password == null || user.local.password == undefined) {
 						req.flash('message', 'You must reset your password')
 						return done(null, false)

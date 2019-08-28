@@ -7,7 +7,7 @@ let user = require('../routeHandlers/user');
 let {isLoggedIn, hasAuth} = require('../middlewares/userAuth.js');
 
 router.get('/', landing.get_landing);
-router.post('/', landing.submit_trick);
+router.post('/', isLoggedIn, landing.submit_trick);
 
 router.get('/tricks', isLoggedIn, landing.show_tricks);
 router.get('/trick/:id', isLoggedIn, landing.show_trick);
